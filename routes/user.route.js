@@ -90,7 +90,16 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
-userRouter.get("/", (req, res) => {
+// check all users
+userRouter.get("/", async (req, res) => {
+    try {
+        let users = await UserModel.find()
+        console.log("those who are log in!", users)
+        res.json({msg:"those who are log in!", users})
+    } catch (error) {
+        console.log("error in checking all users", error)
+        res.json({msg: "error in checking all users", error})
+    }
   res.json({ msg: "user router connected!" });
 });
 
